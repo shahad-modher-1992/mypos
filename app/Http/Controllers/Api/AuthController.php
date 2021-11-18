@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -105,8 +107,16 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user= User::findOrFail($id);
+        $user->delete();
+        return response()->json([
+            'status'   => 200,
+            "message"  => "succuessful deleted",
+            'data'     => $user
+        ]);
     }
+
+    //start login function
 
     public function login(Request $request) {
 
@@ -118,7 +128,25 @@ class AuthController extends Controller
             "message"  => "succuessful login",
             // 'data'     => $user
         ]);
+    }
+   
+    //end login function
 
 
+    // start setPermissions function
+
+    public function setPermissions(UserRequest $request) {
+        $data = $request->except('permissions');
+        $user = User::create($data);
+        $user->roles()->attach(2);
+
+        $role = Role::find(2);
+        $role->permissions()->attach($request->permissions);
+        return response()->json([
+            'status' => 200,
+            'message' => "set permissions successfuly",
+            'data' => $user,
+        ]);
+        
     }
 }

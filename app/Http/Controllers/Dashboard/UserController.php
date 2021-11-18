@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -26,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('dashboard.users.create');
+        $permissions = Permission::get();
+        return view('dashboard.users.create', compact('permissions'));
     }
 
     /**
@@ -35,9 +39,16 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $data = $request->except('permissions');
+        $user = User::create($data);
+        $user->roles()->attach(2);
+
+        $role = Role::find(2);
+        $role->permissions()->attach($request->permissions);
+        session()->flash('success', __('site.added_successfully'));
+        return redirect()->route('dashboard.user.index');
     }
 
     /**

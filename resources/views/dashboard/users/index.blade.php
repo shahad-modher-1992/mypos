@@ -3,7 +3,7 @@
     
 <div class="content-wrapper">
     <section class="content-header">
-        <h1> @lang('site.users') </h1>
+        <h1 style="margin-bottom:5px"> @lang('site.users') </h1>
 
         <ol class="breadcrumb">
             <li class=""> <a href="{{ route('dashboard.index') }}"> <i class="fa fa-dashboard">@lang('site.dashboard')</i></a></li>
@@ -13,11 +13,24 @@
     <section class="content">
         <div class="box box-primary">
             <div class="box-header with border">
-                <h3 class="box-title">@lang('site.users')</h3>
+                <h3 class="box-title" style="margin-bottom: 10px" >@lang('site.users')</h3>
+
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="search" class="form-control" placeholder="@lang('site.search')">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> @lang('site.search')</button>
+                            <a href="{{ route("dashboard.user.create") }}" class="btn btn-primary"><i class="fa fa-plus"style="margin-right:5px"></i>@lang('site.create')</a>
+                        </div>
+                    </div>
+                </form>
             </div>
 
+
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-hover">
                     @if ($users->count() > 0)
 
                    <thead>
@@ -25,7 +38,7 @@
                            <th>index</th>
                            <th>name</th>
                            <th>email</th>
-                           <th>@lang('site.edit')</th>
+                           <th>@lang('site.action')</th>
                        </tr>
                    </thead>
                        

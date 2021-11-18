@@ -41,8 +41,7 @@ return [
     'edit_order' => ' edit order',
 
     'users' => 'users',
-    'first_name' => 'first name',
-    'last_name' => 'last name',
+    'name' => 'name',
     'email' => 'email',
     'image' => 'image',
     'action' => 'action',
