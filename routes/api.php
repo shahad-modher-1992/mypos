@@ -23,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::resource('user', AuthController::class);
 Route::get('login', [AuthController::class, 'login']);
 Route::post('setpermissions', [AuthController::class, 'setPermissions']);
+Route::get('search', [AuthController::class, 'search']);

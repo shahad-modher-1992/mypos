@@ -16,9 +16,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::get();
+        $users = User::where('id', '>' , 1 )->when($request->search, function($q) use ($request) {
+          return $q->where('name', 'like', '%' . $request->search . '%');
+         })->latest()->paginate(5);
+        
         return view('dashboard.users.index', compact('users'));
     }
 
@@ -41,12 +44,26 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $data = $request->except('permissions');
-        $user = User::create($data);
+        $created_data = $request->except(['image','permissions']);
+        $image = $request->image;
+        $path=time().'.'.$image->getClientOriginalExtension();          
+        $request->image->move('user/', $path);
+        $created_data['image'] = $path;
+         $user = User::create($created_data);
+        // dd($user);
+
         $user->roles()->attach(2);
 
         $role = Role::find(2);
-        $role->permissions()->attach($request->permissions);
+
+        $permissions = Permission::where('name' , '=', $request->permissions)->get();
+
+    
+        foreach($permissions as $permission) {      
+            $role->permissions()->attach($permission->id);           
+        }
+         
+
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('dashboard.user.index');
     }
@@ -95,6 +112,7 @@ class UserController extends Controller
     {
         $user= User::findOrFail($id);
         $user->delete();
+        session()->flash('success', __('site.deleted_successfully'));
         return back();
     }
 }

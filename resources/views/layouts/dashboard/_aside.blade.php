@@ -13,7 +13,14 @@
         </div>
 
          <ul class="sidebar-menu" data-widget="tree">
-             <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li> 
+             {{-- @foreach (Auth::user()->roles as $role) --}}
+
+                 {{-- @if ($role->id == 2  ) --}}
+                 <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li> 
+                 {{-- @else
+                 @endif
+
+             @endforeach --}}
              <li><a href="{{ route('dashboard.user.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li> 
 
             {{-- @if (auth()->user()->hasPermission('read_categories'))

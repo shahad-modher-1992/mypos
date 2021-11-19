@@ -149,4 +149,20 @@ class AuthController extends Controller
         ]);
         
     }
+
+
+    ///start search function 
+
+    public function search(Request $request) {
+        $users = User::where('id', '>', 1)->when($request->search, function($q) use ($request) {
+            return $q->where('name', 'like', '%' . $request->search . '%');
+        })->get();
+
+
+        return response()->json([
+            'status'   => 200,
+            'message'  => 'search had been successfuly',
+            'data'     => $users
+        ]);
+    }
 }

@@ -14,22 +14,74 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $create = Permission::create([
-          'name'=> "create"
+        $create_users = Permission::create([
+          'name'=> "create_users"
         ]);
-        $update = Permission::create([
-          'name'=> "update"
+        $update_users = Permission::create([
+          'name'=> "update_users"
         ]);
-        $delete = Permission::create([
-          'name'=> "delete"
+        $delete_users = Permission::create([
+          'name'=> "delete_users"
         ]);
-        $read = Permission::create([
-          'name'=> "read"
+        $read_users = Permission::create([
+          'name'=> "read_users"
         ]);
 
-        $create->roles()->attach(1);
-        $update->roles()->attach(1);
-        $delete->roles()->attach(1);
-        $read->roles()->attach(1);
+        /// products permission
+        $create_products = Permission::create([
+          'name'=> "create_products"
+        ]);
+        $update_products = Permission::create([
+          'name'=> "update_products"
+        ]);
+        $delete_products = Permission::create([
+          'name'=> "delete_products"
+        ]);
+        $read_products = Permission::create([
+          'name'=> "read_products"
+        ]);
+
+        /// clients permissions
+        $create_clients = Permission::create([
+          'name'=> "create_clients"
+        ]);
+        $update_clients = Permission::create([
+          'name'=> "update_clients"
+        ]);
+        $delete_clients = Permission::create([
+          'name'=> "delete_clients"
+        ]);
+        $read_clients = Permission::create([
+          'name'=> "read_clients"
+        ]);
+
+        /// categories permissions
+        $create_categories = Permission::create([
+          'name'=> "create_categories"
+        ]);
+        $update_categories = Permission::create([
+          'name'=> "update_categories"
+        ]);
+        $delete_categories = Permission::create([
+          'name'=> "delete_categories"
+        ]);
+        $read_categories = Permission::create([
+          'name'=> "read_categories"
+        ]);
+        
+
+        /// orders Permissions      
+        $create_orders = Permission::create([
+          'name'=> "create_orders"
+        ]);
+        $update_orders = Permission::create([
+          'name'=> "update_orders"
+        ]);
+        $delete_orders = Permission::create([
+          'name'=> "delete_orders"
+        ]);
+        $read_orders = Permission::create([
+          'name'=> "read_orders"
+        ]);
     }
 }
