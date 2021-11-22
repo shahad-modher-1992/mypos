@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatigoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
 // use App\Http\Controllers\Dashboard\UserController;
@@ -17,6 +18,7 @@ Route::group(
     Route::prefix('dashboard')->name('dashboard.')->group(function() {
            Route::get('/index', [DashboardController::class, 'index'])->name('index');
            Route::resource('user', UserController::class);
+           Route::resource('catigory', CatigoryController::class);
        });
 
   });

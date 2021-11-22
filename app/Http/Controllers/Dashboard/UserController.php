@@ -18,11 +18,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where('id', '>' , 1 )->when($request->search, function($q) use ($request) {
-          return $q->where('name', 'like', '%' . $request->search . '%');
-         })->latest()->paginate(5);
-        
-        return view('dashboard.users.index', compact('users'));
+ 
+            $users = User::where('id', '>', 1)->when($request->search, function($q) use ($request) {
+              return $q->where('name', 'like', '%' . $request->search . '%');
+             })->latest()->paginate(5);
+            return view('dashboard.users.index', compact('users'));
     }
 
     /**

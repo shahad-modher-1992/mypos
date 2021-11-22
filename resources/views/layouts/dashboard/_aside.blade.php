@@ -13,21 +13,15 @@
         </div>
 
          <ul class="sidebar-menu" data-widget="tree">
-             {{-- @foreach (Auth::user()->roles as $role) --}}
-
-                 {{-- @if ($role->id == 2  ) --}}
+            
                  <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li> 
-                 {{-- @else
-                 @endif
-
-             @endforeach --}}
+              
              <li><a href="{{ route('dashboard.user.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li> 
 
-            {{-- @if (auth()->user()->hasPermission('read_categories'))
-                <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
-            @endif
+                <li><a href="{{ route('dashboard.catigory.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
+            
 
-            @if (auth()->user()->hasPermission('read_products'))
+            {{-- @if (auth()->user()->hasPermission('read_products'))
                 <li><a href="{{ route('dashboard.products.index') }}"><i class="fa fa-th"></i><span>@lang('site.products')</span></a></li>
             @endif
 
@@ -41,7 +35,7 @@
 
             @if (auth()->user()->hasPermission('read_users'))
                 <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>
-            @endif   --}}
+            @endif   --}} --}}
 
             {{--<li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-book"></i><span>@lang('site.categories')</span></a></li>--}}
             {{----}}
