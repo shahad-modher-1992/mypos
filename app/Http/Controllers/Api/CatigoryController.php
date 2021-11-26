@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Catigory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CatigoryRequest;
 
 class CatigoryController extends Controller
 {
@@ -12,9 +14,19 @@ class CatigoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $catigories = Catigory::when($request->search, function ($q) use ($request) {
+
+            return $q->whereTranslationLike('name' ,'%' . $request->search . '%');
+
+        })->latest()->paginate(5);
+
+        return response()->json([
+          'status'   => 200,
+          'message'  => 'search successful',
+          'data'     => $catigories
+        ]);
     }
 
     /**
@@ -33,9 +45,24 @@ class CatigoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CatigoryRequest $request)
     {
-        //
+        $create_data = [
+            'en' => [
+                'name' => $request->input('en')['name']
+            ],
+            'ar' => [
+                'name' => $request->input('ar')['name']
+            ]
+        ];
+    
+      $cat_created =  Catigory::create($create_data);
+        return response()->json([
+            'status'   => 200,
+            'message'  => 'created successful',
+            'data'     => $cat_created
+          ]);
+
     }
 
     /**
@@ -46,7 +73,12 @@ class CatigoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $cat = Catigory::findOrFail($id);
+        return response()->json([
+            'status'   => 200,
+            'message'  => 'showed successful',
+            'data'     => $cat
+          ]);
     }
 
     /**
@@ -57,7 +89,7 @@ class CatigoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -67,9 +99,25 @@ class CatigoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CatigoryRequest $request, $id)
     {
-        //
+
+        $cat = Catigory::findOrFail($id);
+        $create_data = [
+            'en' => [
+                'name' => $request->input('en')['name']
+            ],
+            'ar' => [
+                'name' => $request->input('ar')['name']
+            ]
+        ];
+    
+      $cat_update = $cat->update($create_data);
+        return response()->json([
+            'status'   => 200,
+            'message'  => 'updated successful',
+            'data'     => $cat_update
+          ]);
     }
 
     /**
@@ -80,6 +128,13 @@ class CatigoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cat_deleted = Catigory::findOrFail($id);
+        $cat_deleted->delete();
+        return response()->json([
+            'status'   => 200,
+            'message'  => 'deleted successful',
+            'data'     => $cat_deleted
+          ]);
+
     }
 }

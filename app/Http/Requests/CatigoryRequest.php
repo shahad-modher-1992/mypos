@@ -26,29 +26,36 @@ class CatigoryRequest extends FormRequest
      */
     public function rules(CatigoryTranslation $catigory, catigory $cat)
     {
-        return [
-          'en' => [
-              'name' => ['required', Rule::unique('catigory_translations', 'name')
-              ->ignore( 'catigory_id', $cat->id)
-              ->where(function($query) use ($catigory) {
-                  return $query->where('locale', $catigory->locale);
-              })
-              
-            ],
-          ],
-          'ar' => [
-            'name' => ['required', Rule::unique('catigory_translations', 'name')
-            ->ignore('catigory_id', $cat->id)
-            ->where(function($query)  use($catigory) {
-                return $query->where('locale', $catigory->locale);
-            })
-        ],
-    ]
-    ];
+        $rules = [];
+
+        foreach(config('translatable.locales') as $locale) {
+         $rules += [$locale . '.*' => 'required'];
+          $rules += [$locale . '.name' => [Rule::unique('catigory_translations')]];
+    }
     
+  return $rules;
     }
 }
 
 // ->where(function ($query) use ($locale) {
 //     return $query->where('locale', $locale);
 // });;
+
+
+    //       'en' => [
+    //           'name' => ['required', Rule::unique('catigory_translations', 'name')
+    //           ->ignore( 'catigory_id', $cat->id)
+    //           ->where(function($query) use ($catigory) {
+    //               return $query->where('locale', $catigory->locale);
+    //           })
+              
+    //         ],
+    //       ],
+    //       'ar' => [
+    //         'name' => ['required', Rule::unique('catigory_translations', 'name')
+    //         ->ignore('catigory_id', $cat->id)
+    //         ->where(function($query)  use($catigory) {
+    //             return $query->where('locale', $catigory->locale);
+    //         })
+    //     ],
+    // ]

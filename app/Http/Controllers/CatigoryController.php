@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CatigoryRequest;
 use App\Models\Catigory;
+use App\Models\CatigoryTranslation;
 use Illuminate\Http\Request;
 
 class CatigoryController extends Controller
@@ -15,9 +16,12 @@ class CatigoryController extends Controller
      */
     public function index(Request $request)
     {
-        $catigories = Catigory::where('id', '>', 1)->when($request->search, function($q) use ($request) {
-            return $q->where('name', 'like', '%' . $request->search . '%');
-           })->latest()->paginate(5);
+        $catigories = Catigory::when($request->search, function ($q) use ($request) {
+
+            return $q->whereTranslationLike('name' ,'%' . $request->search . '%');
+
+        })->latest()->paginate(5);
+
         return view('dashboard.catigory.index', compact('catigories'));
     }
 
@@ -72,6 +76,7 @@ class CatigoryController extends Controller
      */
     public function edit(Catigory $catigory)
     {
+        
         $cat = Catigory:: findOrFail($catigory->id);
         return view('dashboard.catigory.edit', compact('cat'));
     }
@@ -85,8 +90,18 @@ class CatigoryController extends Controller
      */
     public function update(CatigoryRequest $request, Catigory $catigory)
     {
+
+        $update_data = [
+            'en' => [
+                'name' => $request->input('en')['name']
+            ],
+            'ar' => [
+                'name' => $request->input('ar')['name']
+            ]
+        ];
+
         $cat = Catigory::findOrFail($catigory->id);
-        $cat->update($request->all());
+        $cat->update($update_data);
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('dashboard.catigory.index');
     }

@@ -39,6 +39,10 @@ return [
             'driver' => 'local',
             'root' => public_path('userimage'),
         ],
+        'product' => [
+            'driver' => 'local',
+            'root' => public_path('product'),
+        ],
 
         'public' => [
             'driver' => 'local',

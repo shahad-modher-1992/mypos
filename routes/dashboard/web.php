@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
 // use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -18,6 +19,7 @@ Route::group(
     Route::prefix('dashboard')->name('dashboard.')->group(function() {
            Route::get('/index', [DashboardController::class, 'index'])->name('index');
            Route::resource('user', UserController::class);
+           Route::resource('product', ProductController::class);
            Route::resource('catigory', CatigoryController::class);
        });
 

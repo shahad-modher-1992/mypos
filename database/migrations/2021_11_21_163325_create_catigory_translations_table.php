@@ -14,10 +14,16 @@ class CreateCatigoryTranslationsTable extends Migration
     public function up()
     {
         Schema::create('catigory_translations', function (Blueprint $table) {
-            $table->unsignedBigInteger('catigory_id');
-            $table->string('name');
-            $table->unique(['catigory_id', 'locale']);
-            $table->foreign('catigory_id')->references('id')->on('catigories')->onDelete('cascade');
+                        $table->increments('id'); // Laravel 5.8+ use bigIncrements() instead of increments()
+                        $table->string('locale')->index();
+                 
+                        // Foreign key to the main model
+                        $table->unsignedInteger('catigory_id');
+                        $table->unique(['catigory_id', 'locale']);
+                        $table->foreign('catigory_id')->references('id')->on('catigories')->onDelete('cascade');
+                 
+                        // Actual fields you want to translate
+                        $table->string('name');
         });
     }
 
@@ -31,3 +37,6 @@ class CreateCatigoryTranslationsTable extends Migration
         Schema::dropIfExists('catigory_translations');
     }
 }
+
+
+//

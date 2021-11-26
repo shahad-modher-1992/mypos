@@ -18,4 +18,9 @@ class catigory extends Model implements Shahad
     // 3. To define which attributes needs to be translated
     protected $fillable = ['name'];
     public $translatedAttributes = ['name'];
+    public $timestamps = false;
+ 
+    public function products() {
+        return  $this->hasMany(Product::class);
+    }
 }

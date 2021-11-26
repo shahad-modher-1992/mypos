@@ -40,6 +40,8 @@
                        <tr>
                            <th>index</th>
                            <th>@lang('site.name')</th>
+                           <th>@lang('site.products_count')</th>
+                           <th>@lang('site.related_products')</th>
                            <th>@lang('site.action')</th>
                        </tr>
                    </thead>
@@ -49,6 +51,8 @@
                            <tr>
                                <td>{{ $cat->id }}</td>
                                <td>{{ $cat->name }}</td>
+                               <td>{{ $cat->products->count() }}</td>
+                               <td><a href="{{ route("dashboard.product.index",['catigory_id' => $cat->id]) }}" class="btn btn-info">@lang('site.related_products')</a></td>
                        
                                <td>
                                    <a href="{{ route('dashboard.catigory.edit', $cat->id) }}" class="btn btn-info btn-sm">@lang('site.edit')</a>

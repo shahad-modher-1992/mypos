@@ -22,10 +22,13 @@
                 <form action="{{ route("dashboard.catigory.update", $cat->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    @foreach (config('translatable.locales') as $locale )
+                       
                     <div class="form-group">
-                        <label for="">@lang('site.name')</label>
-                        <input type="text" class="form-control" name="name" value="{{ $cat->name }}">
+                        <label for="">@lang('site.'. $locale . '.name')</label>
+                        <input type="text" class="form-control" name="{{ $locale }}[name]" value="{{ $cat->translate($locale)->name }}">
                     </div>  
+                    @endforeach
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fa faplus"></i>@lang('site.add') </button>
                     </div>
