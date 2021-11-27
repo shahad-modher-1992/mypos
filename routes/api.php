@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CatigoryController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -30,6 +31,8 @@ Route::post('setpermissions', [AuthController::class, 'setPermissions']);
 Route::get('search', [AuthController::class, 'search']);
 Route::resource('product', ProductController::class);
 Route::get('getproducbycat/{id}', [ProductController::class, 'getProductByCatId']);
+Route::resource('client', ClientController::class);
+Route::get('searchclient',[ClientController::class, 'search'] );
 
 
 

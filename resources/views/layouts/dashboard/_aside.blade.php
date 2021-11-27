@@ -18,15 +18,11 @@
                 <li><a href="{{ route('dashboard.user.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li> 
                 <li><a href="{{ route('dashboard.catigory.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
                 <li><a href="{{ route('dashboard.product.index') }}"><i class="fa fa-th"></i><span>@lang('site.products')</span></a></li>
+                <li><a href="{{ route('dashboard.client.index') }}"><i class="fa fa-th"></i><span>@lang('site.clients')</span></a></li>
 
 
-            {{-- @if (auth()->user()->hasPermission('read_products'))
-            @endif
-
-            @if (auth()->user()->hasPermission('read_clients'))
-                <li><a href="{{ route('dashboard.clients.index') }}"><i class="fa fa-th"></i><span>@lang('site.clients')</span></a></li>
-            @endif
-
+           
+{{--  
             @if (auth()->user()->hasPermission('read_orders'))
                 <li><a href="{{ route('dashboard.orders.index') }}"><i class="fa fa-th"></i><span>@lang('site.orders')</span></a></li>
             @endif
