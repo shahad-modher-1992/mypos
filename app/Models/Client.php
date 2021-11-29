@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = ['name', 'phone', 'address'];
+    protected $guarded = [];
     use HasFactory;
+
+
+    /// return upper case name of clients
+    public function getNameAttribute($name) {
+      return ucfirst($name);
+    }
+    
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }

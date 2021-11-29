@@ -42,6 +42,7 @@
                            <th>@lang('site.name')</th>
                            <th>@lang('site.phone')</th>
                            <th>@lang('site.address')</th>
+                           <th>@lang('site.add_order')</th>
                            <th>@lang('site.action')</th>
                        </tr>
                    </thead>
@@ -52,7 +53,8 @@
                                <td>{{ $client->id }}</td>
                                <td>{{ $client->name }}</td>
                                <td>{{ $client->phone}}</td>
-                               <td>{{ $client->address }}</td>                  
+                               <td>{{ $client->address }}</td>            
+                               <td><a href="{{ route('dashboard.client.order.create', $client->id) }}" class="btn btn-primary btn-sm">@lang('site.add_order')</a></td>      
                                <td>
                                    <a href="{{ route('dashboard.client.edit', $client->id) }}" class="btn btn-info btn-sm">@lang('site.edit')</a>
                                    <form action="{{ route("dashboard.client.destroy", $client->id) }}" style="display: inline-block; margin-right: 10px" method="post">

@@ -19,10 +19,12 @@ class ProductController extends Controller
     {
         // $products = Product::paginate(3);
         $cats = catigory::get();
-        $products = Product::when($request->search, function($q) use ($request) {
-          $q->whereTranslationLike('name', '%'. $request->search . '%');
-        })
-        ->where('catigory_id' , '=', $request->catigory_id)->latest()->paginate(3);
+
+        $products =  Product::when($request->search, function($q) use ($request) {
+              return  $q->whereTranslationLike('name', '%'. $request->search . '%')
+              ->where('catigory_id' ,  $request->catigory_id);
+              })->paginate(3);
+      
         return view('dashboard.products.index', compact('products', 'cats'));
     }
 
