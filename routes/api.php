@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CatigoryController;
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -33,6 +34,8 @@ Route::resource('product', ProductController::class);
 Route::get('getproducbycat/{id}', [ProductController::class, 'getProductByCatId']);
 Route::resource('client', ClientController::class);
 Route::get('searchclient',[ClientController::class, 'search'] );
+Route::resource('order', OrderController::class);
+Route::get('searchorder', [OrderController::class, 'search']);
 
 
 

@@ -30,8 +30,8 @@ class OrderController extends Controller
     {
         // dd($client->id);
         $cats = Catigory::with('products')->get();
-        // $orders = $client->orders()->with('products')->paginate(5);
-        return view('dashboard.clients.order.create', compact( 'client', 'cats'));
+        $orders = $client->orders()->with('products')->paginate(5);
+        return view('dashboard.clients.order.create', compact( 'client', 'cats','orders'));
     }
 
     /**
@@ -114,12 +114,12 @@ class OrderController extends Controller
               $pro->update([
                   'stock' => $pro->stock - $product['qty']
               ]);
-  
           }
   
           $order->update([
               'total_price'  => $total_price
           ]);
+          
           session()->flash('success', __('site.updated_successfully'));
           return redirect()->route('dashboard.order.index');
       
